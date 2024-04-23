@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Notice
 from django.contrib import messages
 
 
@@ -542,5 +542,29 @@ def HOD_VIEW_ATTENDANCE(request):
     return render(request,'hod/view_attendance.html')
 
 def HOD_UPLOAD_NOTICE(request):
+    course = Course.objects.all()
+    if request.method == "POST":
+        course_id = request.POST.get('course_id')
+        description = request.POST.get('description')
+        date = request.POST.get('notice_date')
+        coursee = Course.objects.get(id=course_id)
+        notice = Notice(
+                course = coursee,
+                date = date,
+                description = description,
+            )
+        notice.save()
+        messages.success(request,"Successfully Posted !")
+        return redirect('hod_view_notice')
+    context = {
+        'course':course,
+        
+    }
+    return render(request,'hod/upload_notice.html',context)
 
-    return render(request,'hod/upload_notice.html')
+def HOD_VIEW_NOTICE(request):
+    Notice_history = Notice.objects.all()
+    context = {
+        'Notice_history':Notice_history,
+    }
+    return render(request,'hod/upload_notice.html',context)

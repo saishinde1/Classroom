@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content container-fluid">
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Add Assignment</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="subjects.html"> Assignment</a></li>
+                    <li class="breadcrumb-item active">Add Assignment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/messages.html' %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="form-title"><span>Add Assignment</span></h5>
+                            </div>
+
+
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <select class="form-control" name="subject_id" required>
+                                        <option>Select subject</option>
+                                        {% for i in subject %}
+                                        <option value="{{i.id}}">{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-11 col-sm-6">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" name="title" class="form-control" placeholder="Assignment-1" required>
+                                </div>
+
+                            </div>
+                            <div class="col-11 col-sm-5">
+                                <div class="form-group">
+                                    <label>Submission Date</label>
+                                    <input type="date" name="submission_date" class="form-control" required>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label>Assignment Description</label>
+                                    <textarea class="form-control" name="description" style="height: 120px;"
+                                required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label>Upload File</label>
+                                    <input type="file" class="form-control" name="upload_file" required>
+                        
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Fetch Student</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

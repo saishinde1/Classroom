@@ -538,5 +538,9 @@ def STUDENT_DISAPPROVE_LEAVE(request,id):
     return redirect('student_leave_view')
 
 def HOD_VIEW_ATTENDANCE(request):
-    
+
     return render(request,'hod/view_attendance.html')
+
+def HOD_UPLOAD_NOTICE(request):
+
+    return render(request,'hod/upload_notice.html')

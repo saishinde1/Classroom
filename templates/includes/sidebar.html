@@ -51,7 +51,7 @@
                   <li><a href="{% url 'view_session' %}">View Session</a></li>
                </ul>
             </li>
-            <li class="submenu">
+            <li class="submenu {% active_link 'add_session' 'active' %} ">
                <a href="#"><i class="fa fa-book-open"></i> <span> Assignment</span> <span class="menu-arrow"></span></a>
                <ul>
                   <li><a href="subjects.html">Assignment List</a></li>
@@ -59,28 +59,23 @@
                   <li><a href="edit-subject.html">Assignment Edit</a></li>
                </ul>
             </li>
-            <li class="submenu">
-               <a href="#"><i class="fa fa-clipboard"></i> <span> Notice</span> <span class="menu-arrow"></span></a>
-               <ul>
-                  <li><a href="subjects.html">Notice List</a></li>
-                  <li><a href="add-subject.html">Notice Add</a></li>
-                  <li><a href="edit-subject.html">Notice Edit</a></li>
-               </ul>
+            <li class=" {% active_link 'hod_upload_notice' 'active' %} ">
+               <a href="{% url 'hod_upload_notice' %}"><i class="fa fa-pen"></i> <span>Notice</span></a>
             </li>
             
-            <li>
+            <li class=" {% active_link 'hod_view_attendance' 'active' %} ">
                <a href="{% url 'hod_view_attendance' %}"><i class="fa fa-calendar"></i> <span>View Attendance</span></a>
             </li>
-            <li>
+            <li class=" {% active_link 'get_student_feedback' 'active' %} ">
                <a href="{% url 'get_student_feedback' %}"><i class="fas fa-comments"></i> <span>Student Feedback</span></a>
             </li>
-            <li>
+            <li class=" {% active_link 'teacher_leave_view' 'active' %} ">
                <a href="{% url 'teacher_leave_view' %}"><i class="fas fa-envelope"></i> <span>Teacher Leave</span></a>
             </li>
-            <li>
+            <li class=" {% active_link 'student_leave_view' 'active' %} ">
                <a href="{% url 'student_leave_view' %}"><i class="fas fa-envelope"></i> <span>Student Leave</span></a>
             </li>
-            <li>
+            <li class=" {% active_link 'logout' 'active' %} ">
                <a href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i> <span>Logout</span></a>
             </li>
          </ul>
@@ -105,6 +100,9 @@
             </li>
             <li class="{% active_link 'teacher_view_attendance' 'active' %}">
                <a  href="{%url 'teacher_view_attendance' %}"><i class="fas fa-calendar-alt"></i> <span>view/update Attendance</span></a>
+            </li>
+            <li class="{% active_link 'teacher_send_assignment' 'active' %}">
+               <a  href="{%url 'teacher_send_assignment' %}"><i class="fas fa-book"></i> <span>Add Assignment</span></a>
             </li>
             <li class="{% active_link 'hod_home' 'active' %}">
                <a  href="{%url 'hod_home' %}"><i class="fas fa-poll-h"></i> <span>Add result</span></a>

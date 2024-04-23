@@ -1,7 +1,13 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Attendance,Attendance_Report,Assignment
+=======
 from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Attendance,Attendance_Report,StudentResult
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
 from django.contrib import messages
+
+from django.utils.dateparse import parse_datetime
 
 @login_required(login_url='/')
 def HOME(request):
@@ -245,11 +251,18 @@ def TEACHER_VIEW_ATTENDANCE(request):
 
     action=request.GET.get('action')
 
+<<<<<<< HEAD
+    get_subject= None
+    get_session_year= None
+    attendance_date= None
+    attendance_report= None
+=======
     get_subject=None
     get_session_year=None
     attendance_date=None
     attendance_report=None
     attendance_date=None
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
 
     if action is not None:
         if request.method == 'POST':
@@ -280,6 +293,40 @@ def TEACHER_VIEW_ATTENDANCE(request):
 
     return render(request,'Teacher/view_attendance.html',context)
 
+<<<<<<< HEAD
+@login_required(login_url='/')
+def teacher_send_assignment(request):
+    teacher_id=Teacher.objects.get(admin=request.user.id)
+    subject=Subject.objects.filter(teacher_id=teacher_id)
+    get_subject = None 
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        deadline = request.POST.get('submission_date')
+        file = request.FILES.get('upload_file')
+        subject_id = request.POST.get('subject_id')
+        get_subject=Subject.objects.get(id=subject_id)
+         
+   
+        assignment=Assignment(
+            title=title,
+            description=description,
+            deadline=deadline,
+            subject_id=get_subject,
+            file=file
+            )
+    
+        assignment.save()
+        messages.success(request,"Successfully Created")
+        return redirect('teacher_send_assignment')
+
+    context={
+        'subject':subject,
+       
+    }
+    
+    return render(request,'Teacher/send_assignment.html',context)
+=======
 def TEACHER_SEND_ASSIGNMENT(request):
     return render(request,'Teacher/send_assignment.html')
 
@@ -349,3 +396,4 @@ def TEACHER_SAVE_RESULT(request):
             return redirect('teacher_add_result')
         
 
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c

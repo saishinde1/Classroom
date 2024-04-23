@@ -73,6 +73,7 @@ urlpatterns = [
 
     path('Hod/View_attendace',hod_Views.HOD_VIEW_ATTENDANCE,name='hod_view_attendance'),
     path('Hod/upload_notice',hod_Views.HOD_UPLOAD_NOTICE,name='hod_upload_notice'),
+    path('Hod/view_notice',hod_Views.HOD_VIEW_NOTICE,name='hod_view_notice'),
 
     
    
@@ -92,10 +93,14 @@ urlpatterns = [
     path('Teacher/Save_attendace',teacher_Views.TEACHER_SAVE_ATTENDANCE,name='teacher_save_attendance'),
     path('Teacher/View_attendace',teacher_Views.TEACHER_VIEW_ATTENDANCE,name='teacher_view_attendance'),
 
+<<<<<<< HEAD
+    path('Teacher/send_Assignment',teacher_Views.teacher_send_assignment,name='teacher_send_assignment'),
+=======
     path('Teacher/add/Result',teacher_Views.TEACHER_ADD_RESULT,name='teacher_add_result'),
     path('Teacher/save/Result',teacher_Views.TEACHER_SAVE_RESULT,name='teacher_save_result'),
     
     path('Teacher/send_Assignment',teacher_Views.TEACHER_SEND_ASSIGNMENT,name='teacher_send_assignment'),
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
     
 
     #this is for Student

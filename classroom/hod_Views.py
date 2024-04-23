@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Notice
+=======
 from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Attendance,Attendance_Report
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
 from django.contrib import messages
 
 
@@ -578,5 +582,29 @@ def HOD_VIEW_ATTENDANCE(request):
     return render(request,'hod/view_attendance.html',context)
 
 def HOD_UPLOAD_NOTICE(request):
+    course = Course.objects.all()
+    if request.method == "POST":
+        course_id = request.POST.get('course_id')
+        description = request.POST.get('description')
+        date = request.POST.get('notice_date')
+        coursee = Course.objects.get(id=course_id)
+        notice = Notice(
+                course = coursee,
+                date = date,
+                description = description,
+            )
+        notice.save()
+        messages.success(request,"Successfully Posted !")
+        return redirect('hod_view_notice')
+    context = {
+        'course':course,
+        
+    }
+    return render(request,'hod/upload_notice.html',context)
 
-    return render(request,'hod/upload_notice.html')
+def HOD_VIEW_NOTICE(request):
+    Notice_history = Notice.objects.all()
+    context = {
+        'Notice_history':Notice_history,
+    }
+    return render(request,'hod/upload_notice.html',context)

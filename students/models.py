@@ -121,16 +121,47 @@ class StudentResult(models.Model):
         return self.student_id.admin.first_name
 
 
+
+
 class Assignment(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     deadline = models.DateTimeField()
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)  # Link assignment to a teacher
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)  # Link assignment to a subject
-    file = models.FileField(upload_to='assignments/', blank=True, null=True)  # File upload for the assignment
+    subject_id = models.ForeignKey(Subject, on_delete=models.DO_NOTHING)  # Link assignment to a subject
+    file = models.FileField(upload_to='media/ass')  # File upload for the assignment
 
     def __str__(self):
         return self.title
+    
+    
+    
+    
+    
+    
+    
+class Notice(models.Model):
+        course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+        description = models.TextField()
+        date = models.DateField()
 
+<<<<<<< HEAD
+        def __str__(self):
+            return f"{self.course.name} - {self.date}"
+=======
 # models.py
 
+<<<<<<< HEAD
+=======
+class Submission(models.Model):
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)  # Link submission to a subject
+    submission_date = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()  # Optional: Content of the submission
+    file = models.FileField(upload_to='submissions/')  # File upload for the submission
+
+    def __str__(self):
+        return f"{self.student.admin.first_name} {self.student.admin.last_name}'s submission for {self.assignment.title}"
+>>>>>>> ef975779922f2fd8b746d5678034dbd06e74b4b5
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
+>>>>>>> 8ae521ced41ad3a13960b318cdb239bb14a35381

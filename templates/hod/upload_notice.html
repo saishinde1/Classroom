@@ -21,14 +21,25 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <form method="post" action="">
+                <form method="post" action="{% url 'hod_upload_notice' %}">
                     {% csrf_token %}
                     <div class="col-12">
                         <h5 class="form-title"><span>Notice</span></h5>
                     </div>
                     {% include 'includes/messages.html' %}
+                    
                     <div class="col-sm-11">
                         <div class="form-group">
+                            <label>Course</label>
+                            <select class="form-control" name="course_id" required>
+                                <option>Select Course</option>
+                                {% for i in course %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select></div>
+                            </div>
+                        <div class="col-sm-11">
+                            <div class="form-group">
                             <label>Notice Date</label>
                             <input type="date" class="form-control" name="notice_date" required>
                         </div>
@@ -40,13 +51,7 @@
                                 required></textarea>
                         </div>
                     </div>
-                    <div class="col-sm-11">
-                        <div class="form-group">
-                            <label>Upload File</label>
-                            <input type="file" class="form-control" name="upload_file" required>
-                        
-                        </div>
-                    </div>
+                    
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Upload Notice</button>
                     </div>
@@ -78,31 +83,19 @@
                                 <table id="table_id" class="table table-hover table-center mb-0">
                                    <thead>
                                       <tr>
+                                         <th>Course</th>
                                          <th>Date</th>
-                                         <th>Description</th>
                                          
-                                         <th class="text-right">File</th>
+                                         <th>Description</th>
                                       </tr>
                                    </thead>
                                    <tbody>
-                                      {% for i in leave_history %}
+                                      {% for i in Notice_history %}
                                       <tr>
+                                         <td>{{i.course}}</td>
                                          <td>{{i.date}}</td>
-                                         <td>{{i.message}}</td>
                                          
-                                         <td class="text-right">
-                                            <div class="actions">
-                                                {% if i.status == 0 %}
-                                                <span class="badge badge-info"> Request are pending</span>
-                                                {% elif i.status == 1 %}
-                                                <span class="badge badge-success">Accepted</span>
-
-                                                {% else %}
-                                                <span class="badge badge-danger"> Rejected</span>
-
-                                                {% endif %}
-                                               
-                                            </div>
+                                         <td>{{i.description}}
                                          </td>
                                       </tr>
                                       {% endfor %}

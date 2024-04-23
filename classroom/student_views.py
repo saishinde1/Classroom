@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Attendance,Attendance_Report
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Attendance,Attendance_Report,StudentResult
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -82,5 +82,23 @@ def STUDENT_VIEW_ATTENDANCE(request):
         'get_subject':get_subject,
     }
     return render(request,'Student/view_attendance.html',context)
+
+
+def STUDENT_VIEW_RESULT(request):
+    student= Student.objects.get(admin=request.user.id)
+    print(student)
+    result=StudentResult.objects.filter(student_id=student)
+    mark=None
+    
+    for i in result:
+        assignment_mark = i.assignment_mark
+        exam_mark = i.exam_mark
+        mark = assignment_mark + exam_mark
+        print(i)
+    context={
+        'result':result,
+         'mark':mark,
+        }
+    return render(request,'Student/view_result.html',context)
 
   

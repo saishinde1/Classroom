@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Notice
+=======
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Attendance,Attendance_Report
+>>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
 from django.contrib import messages
 
 
@@ -538,8 +542,44 @@ def STUDENT_DISAPPROVE_LEAVE(request,id):
     return redirect('student_leave_view')
 
 def HOD_VIEW_ATTENDANCE(request):
+    subject=Subject.objects.all()
+    session_year=Session_Year.objects.all()
 
-    return render(request,'hod/view_attendance.html')
+    action=request.GET.get('action')
+
+    get_subject=None
+    get_session_year=None
+    attendance=None
+    attendance_report=None
+    attendance_date=None
+
+    if action is not None:
+        if request.method == 'POST':
+            subject_id = request.POST.get('subject_id')
+            session_year_id = request.POST.get('session_year_id')
+            attendance_date=request.POST.get('attendance_date')
+
+            get_subject=Subject.objects.get(id=subject_id)
+            get_session_year=Session_Year.objects.get(id=session_year_id)
+            attendance=Attendance.objects.filter(subject_id=get_subject,attendance_date=attendance_date)
+
+            for i in attendance:
+                attendance_id=i.id
+                attendance_report=Attendance_Report.objects.filter(attendance_id=attendance_id)
+
+
+
+    context={
+        'subject':subject,
+        'session_year':session_year,
+        'action':action,
+        'get_subject':get_subject,
+        'get_session_year':get_session_year,
+        'attendance_date':attendance_date,
+        'attendance_report':attendance_report
+
+    }
+    return render(request,'hod/view_attendance.html',context)
 
 def HOD_UPLOAD_NOTICE(request):
     course = Course.objects.all()

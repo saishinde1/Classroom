@@ -109,7 +109,6 @@ class Attendance_Report(models.Model):
     def __str__(self):
         return self.student_id.admin.first_name
 
-<<<<<<< HEAD
 class StudentResult(models.Model):
     student_id = models.ForeignKey (Student,on_delete=models.CASCADE)
     subject_id = models.ForeignKey (Subject,on_delete=models.CASCADE)
@@ -120,7 +119,6 @@ class StudentResult(models.Model):
     
     def __str__(self):
         return self.student_id.admin.first_name
-=======
 
 
 class Assignment(models.Model):
@@ -136,14 +134,3 @@ class Assignment(models.Model):
 
 # models.py
 
-class Submission(models.Model):
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)  # Link submission to a subject
-    submission_date = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()  # Optional: Content of the submission
-    file = models.FileField(upload_to='submissions/')  # File upload for the submission
-
-    def __str__(self):
-        return f"{self.student.admin.first_name} {self.student.admin.last_name}'s submission for {self.assignment.title}"
->>>>>>> ef975779922f2fd8b746d5678034dbd06e74b4b5

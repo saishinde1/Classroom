@@ -72,6 +72,7 @@ urlpatterns = [
     path('Hod/Student/Disapprove_leave/<str:id>',hod_Views.STUDENT_DISAPPROVE_LEAVE,name='student_disapprove_leave'),
 
     path('Hod/View_attendace',hod_Views.HOD_VIEW_ATTENDANCE,name='hod_view_attendance'),
+    path('Hod/upload_notice',hod_Views.HOD_UPLOAD_NOTICE,name='hod_upload_notice'),
 
     
    
@@ -91,6 +92,8 @@ urlpatterns = [
     path('Teacher/Save_attendace',teacher_Views.TEACHER_SAVE_ATTENDANCE,name='teacher_save_attendance'),
     path('Teacher/View_attendace',teacher_Views.TEACHER_VIEW_ATTENDANCE,name='teacher_view_attendance'),
 
+    path('Teacher/send_Assignment',teacher_Views.TEACHER_SEND_ASSIGNMENT,name='teacher_send_assignment'),
+    
 
     #this is for Student
     path('Student/home',student_Views.HOME,name='student_home'),

@@ -277,3 +277,6 @@ def TEACHER_VIEW_ATTENDANCE(request):
     }
 
     return render(request,'Teacher/view_attendance.html',context)
+
+def TEACHER_SEND_ASSIGNMENT(request):
+    return render(request,'Teacher/send_assignment.html')

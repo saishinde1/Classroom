@@ -39,9 +39,11 @@ urlpatterns = [
     path('Hod/Course/Edit/<str:id>',hod_Views.EDIT_COURSE,name='edit_course'),
     path('Hod/Course/Update',hod_Views.UPDATE_COURSE,name='update_course'),
     path('Hod/Course/Delete/<str:id>',hod_Views.DELETE_COURSE,name='delete_course'),
-
     
+    path('Hod/Teacher/Add', hod_Views.ADD_TEACHER,name='add_teacher'),
+    path('Hod/Teacher/View', hod_Views.VIEW_TEACHER,name='view_teacher'),
+    path('Hod/Teacher/Edit/<str:id>', hod_Views.EDIT_TEACHER,name='edit_teacher'),
+    path('Hod/Teacher/Update', hod_Views.UPDATE_TEACHER,name='update_teacher'),
+    path('Hod/Teacher/Delete/<str:admin>',hod_Views.DELETE_TEACHER,name='delete_teacher'),
     
-    
-   
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

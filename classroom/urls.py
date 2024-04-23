@@ -92,6 +92,9 @@ urlpatterns = [
     path('Teacher/Save_attendace',teacher_Views.TEACHER_SAVE_ATTENDANCE,name='teacher_save_attendance'),
     path('Teacher/View_attendace',teacher_Views.TEACHER_VIEW_ATTENDANCE,name='teacher_view_attendance'),
 
+    path('Teacher/add/Result',teacher_Views.TEACHER_ADD_RESULT,name='teacher_add_result'),
+    path('Teacher/save/Result',teacher_Views.TEACHER_SAVE_RESULT,name='teacher_save_result'),
+    
     path('Teacher/send_Assignment',teacher_Views.TEACHER_SEND_ASSIGNMENT,name='teacher_send_assignment'),
     
 
@@ -105,6 +108,7 @@ urlpatterns = [
     path('Student/leave_save',student_Views.STUDENT_LEAVE_SAVE,name='student_leave_save'),
     
     path('Student/View_attendace',student_Views.STUDENT_VIEW_ATTENDANCE,name='student_view_attendance'),
+    path('Student/View_Result',student_Views.STUDENT_VIEW_RESULT,name='student_view_result'),
 
    
 

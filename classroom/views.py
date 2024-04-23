@@ -8,7 +8,7 @@ from students.models import CustomUser
 def divya(request):
     return render(request,'base.html')
 
-def login(request):
+def LOGIN(request):
     return render(request,'login.html')
 
 def dologin(request):
@@ -16,21 +16,21 @@ def dologin(request):
         user= EmailBackEnd.authenticate(request,
                                         username=request.POST.get('email'),
                                         password=request.POST.get('password'))
-    if user!=None:
-        login(request)
-        user_type=user.user_type 
-        if user_type=='1':
-            return redirect('hod_home') 
-        elif user_type=='2' :
-            return HttpResponse('this is staff')
-        elif user_type=='3':
-            return HttpResponse('this is student')
+        if user!=None:
+            login(request,user)
+            user_type=user.user_type 
+            if user_type == '1':
+                return redirect('hod_home') 
+            elif user_type == '2' :
+                return redirect('teacher_home') 
+            elif user_type == '3':
+                return redirect('student_home') 
+            else:
+                messages.error(request,'Email or Password is invalid')
+                return redirect('login')
         else:
             messages.error(request,'Email or Password is invalid')
-            return redirect('login')
-    else:
-        messages.error(request,'Email or Password is invalid')
-        return redirect('login')                                    
+            return redirect('login')                                    
 
 def dologout(request):
     logout(request)

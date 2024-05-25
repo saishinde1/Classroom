@@ -11,10 +11,6 @@
                <li class="breadcrumb-item active">Result</li>
             </ul>
          </div>
-         <div class="col-auto text-right float-right ml-auto">
-            <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-            <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-         </div>
       </div>
    </div>
    {% include 'includes/messages.html' %}
@@ -40,10 +36,10 @@
                            <td>{{i.id}}</td>
                            <td>{{i.subject_id.name}}</td>
                            <td>{{i.assignment_mark}}</td>
-                           <td>{{i.exam_mark}}</td>
+                           <td>{{i.total_marks}}</td>
                            
                            <td class="text-right">
-                              {% if mark >= 30 %}
+                              {% if i.total_marks >= 30 %}
                               <span class="badge badge-success">PASS</span>
                               {% else %}
                               <SPAn class="badge badge-danger">FAIL</SPAn>

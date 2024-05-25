@@ -1,12 +1,15 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Notice
-=======
-from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Attendance,Attendance_Report
->>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Student_Feedback,Student_Leave,Attendance,Attendance_Report,Notice,StudentResult
 from django.contrib import messages
+from itertools import chain
 
+
+def calculate_percentage(total_marks):
+    total_marks_possible = 150
+    percentage = (total_marks / total_marks_possible) * 100
+    rounded_percentage = round(percentage, 2)  # Round to 2 decimal places
+    return rounded_percentage
 
 @login_required(login_url='/')
 def home(request):
@@ -16,21 +19,47 @@ def home(request):
     course_count = Course.objects.all().count()
     subject_count = Subject.objects.all().count()
 
-    student_gender_male=Student.objects.filter(gender='Male').count()
-    student_gender_female=Student.objects.filter(gender='Female').count()
+    student_gender_male = Student.objects.filter(gender='Male').count()
+    student_gender_female = Student.objects.filter(gender='Female').count()
 
+    above80 = StudentResult.objects.filter(total_marks__gte=80).count()
+    below30 = StudentResult.objects.filter(total_marks__lte=29).count()
+    passed = StudentResult.objects.filter(total_marks__gte=30).count()
+
+    top_bca_students = StudentResult.objects.filter(
+        student_id__course_id__name='BCA'
+    ).order_by('-total_marks')[:3]
+
+    # Fetch top 3 students of MCA
+    top_mca_students = StudentResult.objects.filter(
+        student_id__course_id__name='MCA'
+    ).order_by('-total_marks')[:3]
+
+    # Fetch top 3 students of MBA
+    top_mba_students = StudentResult.objects.filter(
+        student_id__course_id__name='MBA'
+    ).order_by('-total_marks')[:3]
+
+    all_top_students = list(chain(top_bca_students, top_mca_students, top_mba_students))
+    for student in all_top_students:
+        student.percentage = calculate_percentage(student.total_marks)
+
+    print(all_top_students)
 
     context = {
         'student_count': student_count,
-        'teacher_count':teacher_count,
+        'teacher_count': teacher_count,
         'course_count': course_count,
-        'subject_count':subject_count,
-        'student_gender_female':student_gender_female,
-        'student_gender_male':student_gender_male,
-
+        'subject_count': subject_count,
+        'student_gender_female': student_gender_female,
+        'student_gender_male': student_gender_male,
+        'above80': above80,
+        'below30': below30,
+        'passed': passed,
+        'all_top_students':all_top_students
     }
 
-    return render(request, 'hod/home.html',context)
+    return render(request, 'hod/home.html', context)
 
 @login_required(login_url='/')
 def ADD_STUDENT(request):
@@ -608,3 +637,4 @@ def HOD_VIEW_NOTICE(request):
         'Notice_history':Notice_history,
     }
     return render(request,'hod/upload_notice.html',context)
+

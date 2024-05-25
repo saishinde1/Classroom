@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content container-fluid">
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">View Submissions</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="subjects.html"> Submissions</a></li>
+                    <li class="breadcrumb-item active">View Submissions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/messages.html' %}
+    {% if action is None %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="?action=teacher_view_submission" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="form-title"><span>View Submission</span></h5>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Course</label>
+                                    <select class="form-control" name="course_id" required>
+                                        <option>Select Course</option>
+                                        {% for i in course %}
+                                        <option value="{{i.id}}">{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <select class="form-control" name="subject_id" required>
+                                        <option>Select subject</option>
+                                        {% for i in subject %}
+                                        <option value="{{i.id}}">{{i.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        
+                            <div class="col-12 col-sm-6 mt-4">
+                                <div class="form-group">
+                                    <label>Assignment</label>
+                                    <select class="form-control" name="assignment_id" required>
+                                        <option>Select Assignment</option>
+                                        {% for i in assignment %}
+                                        <option value="{{i.id}}">{{i.title}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        
+                            <br>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary">Show Submissions</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="?action=teacher_view_submission" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="form-title"><span>View Submissions</span></h5>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Course</label>
+                                    <select class="form-control" name="course_id" disabled>
+                                        <option value="{{i.id}}">{{get_course}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <select class="form-control" name="subject_id" disabled>
+                                        <option value="{{i.id}}">{{get_subject}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Assignment</label>
+                                    <select class="form-control" name="assignment_id" disabled>
+                                        <option value="{{i.id}}">{{get_assignment}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                       <div class="card card-table">
+                                          <div class="card-body">
+                                             <div class="table-responsive">
+                                                <table id="table_id" class="table table-hover table-center mb-0">
+                                                   <thead>
+                                                      <tr>
+                                                         <th>ID</th>
+                                                         <th>Student</th>
+                                                         <th>Submission_date</th>
+                                                         <th>file</th>
+                                                        
+                                                      </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                    {% for i in submissions %}
+                                                    <tr>
+                                                        <td>{{ i.id }}</td>  <!-- Display Submission ID -->
+                                                        <td>{{ i.student }}</td>  <!-- Display Student's Full Name -->
+                                                        <td>{{ i.submission_date }}</td>  <!-- Display Submission Date -->
+                                                        <td><a href="{{ i.file.url }}">{{ i.file.name }}</a></td>  <!-- Link to File -->
+                                                    </tr>
+                                                    {% endfor %}
+                                                   </tbody>
+                                                </table>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

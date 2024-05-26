@@ -26,10 +26,7 @@ def home(request):
     below30 = StudentResult.objects.filter(total_marks__lte=29).count()
     passed = StudentResult.objects.filter(total_marks__gte=30).count()
 
-<<<<<<< HEAD
     print(above80,below30,passed)
-=======
->>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
     top_bca_students = StudentResult.objects.filter(
         student_id__course_id__name='BCA'
     ).order_by('-total_marks')[:3]

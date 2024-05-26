@@ -4,7 +4,11 @@ $(document).ready(function() {
     // Area chart
     if ($('#allresult').length > 0) {
         var options = {
+<<<<<<< HEAD
             series: [{{above80}}, {{ passed  }}, {{ below30 }}],
+=======
+            series: [{{above80}}, {{ below30 }}, {{ passed }}],
+>>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
             chart: {
                 height: 350,
                 width: '100%',
@@ -28,6 +32,7 @@ $(document).ready(function() {
         var chart = new ApexCharts(document.querySelector("#allresult"), options);
         chart.render();
     }
+<<<<<<< HEAD
     //teacher_result
     if ($('#teacher_allresult').length > 0) {
         var options = {
@@ -83,6 +88,9 @@ $(document).ready(function() {
         chart.render();
     }
 
+=======
+
+>>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
     // Bar chart
     if ($('#stud_gender').length > 0) {
         var optionsBar = {
@@ -148,6 +156,7 @@ $(document).ready(function() {
 
         var chartBar = new ApexCharts(document.querySelector('#stud_gender'), optionsBar);
         chartBar.render();
+<<<<<<< HEAD
     }
 // teacher_Bar chart
 if ($('#teacher_stud_gender').length > 0) {
@@ -285,6 +294,13 @@ if ($('#teacher_stud_gender').length > 0) {
     if ($('#chart').length > 0){
     var options = {
         series: [{{ student_count }}, {{ teacher_count }}, {{ course_count }}, {{ subject_count }}],
+=======
+    }
+
+     if ($('#chart').length > 0){
+    var options = {
+          series: [{{ student_count }}, {{ teacher_count }}, {{ course_count }}, {{ subject_count }}],
+>>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
           chart: {
           height: 350,
               width: '100%',
@@ -318,6 +334,7 @@ if ($('#teacher_stud_gender').length > 0) {
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
+<<<<<<< HEAD
         chart.render();
     }
 
@@ -358,6 +375,8 @@ if ($('#teacher_stud_gender').length > 0) {
         };
 
         var chart = new ApexCharts(document.querySelector("#chart2"), options);
+=======
+>>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
         chart.render();}
 
 

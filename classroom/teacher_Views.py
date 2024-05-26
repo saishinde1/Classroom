@@ -9,7 +9,7 @@ from django.utils.dateparse import parse_datetime
 
 
 def calculate_percentage(total_marks):
-    total_marks_possible = 150
+    total_marks_possible = 75
     percentage = (total_marks / total_marks_possible) * 100
     rounded_percentage = round(percentage, 2)  # Round to 2 decimal places
     return rounded_percentage
@@ -30,9 +30,9 @@ def HOME(request):
     # Compute the assignment count
     assignment_count = Assignment.objects.filter(subject_id__in=subjects_taught).count()
 
-    teacher_above80 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=80).count()
-    teacher_below30 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__lte=29).count()
-    teacher_passed = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=30).count()
+    teacher_above50 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=50).count()
+    teacher_below24 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__lte=24).count()
+    teacher_passed = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=25).count()
 
     gender_male = Student.objects.filter(gender='Male',course_id__in=courses_taught).count()
     gender_female = Student.objects.filter(gender='Female',course_id__in=courses_taught).count()
@@ -52,8 +52,8 @@ def HOME(request):
         'course_count': course_count,
         'student_count': student_count,
         'assignment_count': assignment_count,
-        'teacher_above80': teacher_above80,
-        'teacher_below30': teacher_below30,
+        'teacher_above50': teacher_above50,
+        'teacher_below24': teacher_below24,
         'teacher_passed': teacher_passed,
         'gender_female':gender_female,
         'gender_male':gender_male,

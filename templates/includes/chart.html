@@ -1,384 +1,365 @@
 <script>
-$(document).ready(function() {
-
-    // Area chart
-    if ($('#allresult').length > 0) {
-        var options = {
-<<<<<<< HEAD
-            series: [{{above80}}, {{ passed  }}, {{ below30 }}],
-=======
-            series: [{{above80}}, {{ below30 }}, {{ passed }}],
->>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
-            chart: {
-                height: 350,
-                width: '100%',
-                type: 'pie',
-            },
-            labels: [  'Above 80 Students','passed Students','Failed Students'],
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200,
-                         height: 350,
-                    },
-                    legend: {
-                        position: 'bottom'
+    $(document).ready(function() {
+    
+        // Area chart
+        if ($('#allresult').length > 0) {
+            var options = {
+                series: [{{above50}}, {{ passed  }}, {{ below24 }}],
+                chart: {
+                    height: 350,
+                    width: '100%',
+                    type: 'pie',
+                },
+                labels: [  'Above 50 Students','passed Students','Failed Students'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200,
+                             height: 350,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
                     }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#allresult"), options);
-        chart.render();
-    }
-<<<<<<< HEAD
-    //teacher_result
-    if ($('#teacher_allresult').length > 0) {
-        var options = {
-            series: [{{ teacher_above80 }}, {{ teacher_passed }}, {{ teacher_below30 }}],
-            chart: {
-                height: 350,
-                width: '100%',
-                type: 'pie',
-            },
-            labels: [  'Above 80 Students','passed Students','Failed Students'],
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200,
-                         height: 350,
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#teacher_allresult"), options);
-        chart.render();
-    }
-    //student result
-    if ($('#studentAllresult').length > 0) {
-        var options = {
-            series: [{{passed_subjects_count}}, {{ failed_subjects_count  }}],
-            chart: {
-                height: 350,
-                width: '100%',
-                type: 'pie',
-            },
-            labels: [  'passed Subjects','Failed Subjects'],
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200,
-                         height: 350,
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#studentAllresult"), options);
-        chart.render();
-    }
-
-=======
-
->>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
-    // Bar chart
-    if ($('#stud_gender').length > 0) {
-        var optionsBar = {
-            chart: {
-                type: 'bar',
-                height: 350,
-                width: '100%',
-                stacked: true,
-                toolbar: {
-                    show: false
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '45%',
-                }
-            },
-            series: [{
-                name: "Boys",
-                color: '#fdbb38',
-                data: [{{ student_gender_male|safe }}] // Here is a potential syntax error
-            }, {
-                name: "Girls",
-                color: '#19affb',
-                data: [{{ student_gender_female|safe }}] // Here is a potential syntax error
-            }],
-            labels: [2024],
-            xaxis: {
-                labels: {
-                    show: false
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-                labels: {
-                    style: {
-                        colors: '#777'
-                    }
-                }
-            },
-            title: {
-                text: '',
-                align: 'left',
-                style: {
-                    fontSize: '18px'
-                }
-            }
-        };
-
-        var chartBar = new ApexCharts(document.querySelector('#stud_gender'), optionsBar);
-        chartBar.render();
-<<<<<<< HEAD
-    }
-// teacher_Bar chart
-if ($('#teacher_stud_gender').length > 0) {
-        var optionsBar = {
-            chart: {
-                type: 'bar',
-                height: 350,
-                width: '100%',
-                stacked: true,
-                toolbar: {
-                    show: false
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '45%',
-                }
-            },
-            series: [{
-                name: "Boys",
-                color: '#fdbb38',
-                data: [{{ gender_male|safe }}] // Here is a potential syntax error
-            }, {
-                name: "Girls",
-                color: '#19affb',
-                data: [{{ gender_female|safe }}] // Here is a potential syntax error
-            }],
-            labels: [2024],
-            xaxis: {
-                labels: {
-                    show: false
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-                labels: {
-                    style: {
-                        colors: '#777'
-                    }
-                }
-            },
-            title: {
-                text: '',
-                align: 'left',
-                style: {
-                    fontSize: '18px'
-                }
-            }
-        };
-
-        var chartBar = new ApexCharts(document.querySelector('#teacher_stud_gender'), optionsBar);
-        chartBar.render();
-    }
-    //student bar chart
-    if ($('#assignments').length > 0) {
-        var optionsBar = {
-            chart: {
-                type: 'bar',
-                height: 350,
-                width: '100%',
-                stacked: true,
-                toolbar: {
-                    show: false
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '45%',
-                }
-            },
-            series: [{
-                name: "Pending Assignments",
-                color: '#FDBB38',
-                data: [{{ pending_assignments_count|safe }}] // Here is a potential syntax error
-            }, {
-                name: "Submitted Assignments",
-                color: '#19AFFB',
-                data: [{{ submitted_assignments_count|safe }}] // Here is a potential syntax error
-            }],
-            labels: [2024],
-            xaxis: {
-                labels: {
-                    show: false
-                },
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-            },
-            yaxis: {
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                },
-                labels: {
-                    style: {
-                        colors: '#777'
-                    }
-                }
-            },
-            title: {
-                text: '',
-                align: 'left',
-                style: {
-                    fontSize: '18px'
-                }
-            }
-        };
-
-        var chartBar = new ApexCharts(document.querySelector('#assignments'), optionsBar);
-        chartBar.render();
-    }
-
-    if ($('#chart').length > 0){
-    var options = {
-        series: [{{ student_count }}, {{ teacher_count }}, {{ course_count }}, {{ subject_count }}],
-=======
-    }
-
-     if ($('#chart').length > 0){
-    var options = {
-          series: [{{ student_count }}, {{ teacher_count }}, {{ course_count }}, {{ subject_count }}],
->>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
-          chart: {
-          height: 350,
-              width: '100%',
-          type: 'pie',
-        },
-        labels: ["Students", "Teachers", "Course", "Subjects"],
-        theme: {
-          monochrome: {
-            enabled: true
-          }
-        },
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              offset: -5
-            }
-          }
-        },
-        title: {
-          text: ""
-        },
-        dataLabels: {
-          formatter(val, opts) {
-            const name = opts.w.globals.labels[opts.seriesIndex]
-            return [name, val.toFixed(1) + '%']
-          }
-        },
-        legend: {
-          show: false
+                }]
+            };
+    
+            var chart = new ApexCharts(document.querySelector("#allresult"), options);
+            chart.render();
         }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-<<<<<<< HEAD
-        chart.render();
-    }
-
-
-    if ($('#chart2').length > 0){
-    var options = {
-          series: [{{ student_count }}, {{ subject_count }}, {{ course_count }}, {{ assignment_count }}],
-          chart: {
-          height: 350,
-              width: '100%',
-          type: 'pie',
-        },
-        labels: ["Students", "Subjects", "Course", "Assignments"],
-        theme: {
-          monochrome: {
-            enabled: true
-          }
-        },
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              offset: -5
-            }
-          }
-        },
-        title: {
-          text: ""
-        },
-        dataLabels: {
-          formatter(val, opts) {
-            const name = opts.w.globals.labels[opts.seriesIndex]
-            return [name, val.toFixed(1) + '%']
-          }
-        },
-        legend: {
-          show: false
+        //teacher_result
+        if ($('#teacher_allresult').length > 0) {
+            var options = {
+                series: [{{ teacher_above50 }}, {{ teacher_passed }}, {{ teacher_below24 }}],
+                chart: {
+                    height: 350,
+                    width: '100%',
+                    type: 'pie',
+                },
+                labels: [  'Above 50 Students','passed Students','Failed Students'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200,
+                             height: 350,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+    
+            var chart = new ApexCharts(document.querySelector("#teacher_allresult"), options);
+            chart.render();
         }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart2"), options);
-=======
->>>>>>> 106ca2e21e5be73bd557c57fe2efac7cb5bab4d9
-        chart.render();}
-
-
-});
-</script>
+        //student result
+        if ($('#studentAllresult').length > 0) {
+            var options = {
+                series: [{{passed_subjects_count}}, {{ failed_subjects_count  }}],
+                chart: {
+                    height: 350,
+                    width: '100%',
+                    type: 'pie',
+                },
+                labels: [  'passed Subjects','Failed Subjects'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200,
+                             height: 350,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+    
+            var chart = new ApexCharts(document.querySelector("#studentAllresult"), options);
+            chart.render();
+        }
+    
+        // Bar chart
+        if ($('#stud_gender').length > 0) {
+            var optionsBar = {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    width: '100%',
+                    stacked: true,
+                    toolbar: {
+                        show: false
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '45%',
+                    }
+                },
+                series: [{
+                    name: "Boys",
+                    color: '#fdbb38',
+                    data: [{{ student_gender_male|safe }}] // Here is a potential syntax error
+                }, {
+                    name: "Girls",
+                    color: '#19affb',
+                    data: [{{ student_gender_female|safe }}] // Here is a potential syntax error
+                }],
+                labels: [2024],
+                xaxis: {
+                    labels: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                },
+                yaxis: {
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        style: {
+                            colors: '#777'
+                        }
+                    }
+                },
+                title: {
+                    text: '',
+                    align: 'left',
+                    style: {
+                        fontSize: '18px'
+                    }
+                }
+            };
+    
+            var chartBar = new ApexCharts(document.querySelector('#stud_gender'), optionsBar);
+            chartBar.render();
+        }
+    // teacher_Bar chart
+    if ($('#teacher_stud_gender').length > 0) {
+            var optionsBar = {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    width: '100%',
+                    stacked: true,
+                    toolbar: {
+                        show: false
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '45%',
+                    }
+                },
+                series: [{
+                    name: "Boys",
+                    color: '#fdbb38',
+                    data: [{{ gender_male|safe }}] // Here is a potential syntax error
+                }, {
+                    name: "Girls",
+                    color: '#19affb',
+                    data: [{{ gender_female|safe }}] // Here is a potential syntax error
+                }],
+                labels: [2024],
+                xaxis: {
+                    labels: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                },
+                yaxis: {
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        style: {
+                            colors: '#777'
+                        }
+                    }
+                },
+                title: {
+                    text: '',
+                    align: 'left',
+                    style: {
+                        fontSize: '18px'
+                    }
+                }
+            };
+    
+            var chartBar = new ApexCharts(document.querySelector('#teacher_stud_gender'), optionsBar);
+            chartBar.render();
+        }
+        //student bar chart
+        if ($('#assignments').length > 0) {
+            var optionsBar = {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    width: '100%',
+                    stacked: true,
+                    toolbar: {
+                        show: false
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '45%',
+                    }
+                },
+                series: [{
+                    name: "Pending Assignments",
+                    color: '#FDBB38',
+                    data: [{{ pending_assignments_count|safe }}] // Here is a potential syntax error
+                }, {
+                    name: "Submitted Assignments",
+                    color: '#19AFFB',
+                    data: [{{ submitted_assignments_count|safe }}] // Here is a potential syntax error
+                }],
+                labels: [2024],
+                xaxis: {
+                    labels: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                },
+                yaxis: {
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        style: {
+                            colors: '#777'
+                        }
+                    }
+                },
+                title: {
+                    text: '',
+                    align: 'left',
+                    style: {
+                        fontSize: '18px'
+                    }
+                }
+            };
+    
+            var chartBar = new ApexCharts(document.querySelector('#assignments'), optionsBar);
+            chartBar.render();
+        }
+    
+        if ($('#chart').length > 0){
+        var options = {
+            series: [{{ student_count }}, {{ teacher_count }}, {{ course_count }}, {{ subject_count }}],
+              chart: {
+              height: 350,
+                  width: '100%',
+              type: 'pie',
+            },
+            labels: ["Students", "Teachers", "Course", "Subjects"],
+            theme: {
+              monochrome: {
+                enabled: true
+              }
+            },
+            plotOptions: {
+              pie: {
+                dataLabels: {
+                  offset: -5
+                }
+              }
+            },
+            title: {
+              text: ""
+            },
+            dataLabels: {
+              formatter(val, opts) {
+                const name = opts.w.globals.labels[opts.seriesIndex]
+                return [name, val.toFixed(1) + '%']
+              }
+            },
+            legend: {
+              show: false
+            }
+            };
+    
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        }
+    
+    
+        if ($('#chart2').length > 0){
+        var options = {
+              series: [{{ student_count }}, {{ subject_count }}, {{ course_count }}, {{ assignment_count }}],
+              chart: {
+              height: 350,
+                  width: '100%',
+              type: 'pie',
+            },
+            labels: ["Students", "Subjects", "Course", "Assignments"],
+            theme: {
+              monochrome: {
+                enabled: true
+              }
+            },
+            plotOptions: {
+              pie: {
+                dataLabels: {
+                  offset: -5
+                }
+              }
+            },
+            title: {
+              text: ""
+            },
+            dataLabels: {
+              formatter(val, opts) {
+                const name = opts.w.globals.labels[opts.seriesIndex]
+                return [name, val.toFixed(1) + '%']
+              }
+            },
+            legend: {
+              show: false
+            }
+            };
+    
+            var chart = new ApexCharts(document.querySelector("#chart2"), options);
+            chart.render();}
+    
+    
+    });
+    </script>

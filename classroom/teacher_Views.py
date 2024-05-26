@@ -7,10 +7,59 @@ from django.core.files.storage import FileSystemStorage
 
 from django.utils.dateparse import parse_datetime
 
+
+def calculate_percentage(total_marks):
+    total_marks_possible = 150
+    percentage = (total_marks / total_marks_possible) * 100
+    rounded_percentage = round(percentage, 2)  # Round to 2 decimal places
+    return rounded_percentage
+
 @login_required(login_url='/')
 def HOME(request):
     user = request.session.get('user')
-    return render(request, 'Teacher/home.html')
+    
+    teacher_id=Teacher.objects.get(admin=request.user.id)
+
+    # Compute the statistics
+    subject_count = Subject.objects.filter(teacher_id=teacher_id).count()
+    course_count = Subject.objects.filter(teacher_id=teacher_id).values('course').distinct().count()
+    courses_taught = Subject.objects.filter(teacher_id=teacher_id).values_list('course_id', flat=True).distinct()
+    student_count = Student.objects.filter(course_id__in=courses_taught).count()
+    subjects_taught = Subject.objects.filter(teacher_id=teacher_id).values_list('id', flat=True)
+    
+    # Compute the assignment count
+    assignment_count = Assignment.objects.filter(subject_id__in=subjects_taught).count()
+
+    teacher_above80 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=80).count()
+    teacher_below30 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__lte=29).count()
+    teacher_passed = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=30).count()
+
+    gender_male = Student.objects.filter(gender='Male',course_id__in=courses_taught).count()
+    gender_female = Student.objects.filter(gender='Female',course_id__in=courses_taught).count()
+
+    courses = Course.objects.filter(subject__teacher_id=teacher_id).distinct()
+
+    # Fetch top students for each course taught by the teacher
+    top_students = StudentResult.objects.filter(subject_id__in=subjects_taught).order_by('-total_marks')[:3]
+
+# Calculate percentage for each student
+    for student in top_students:
+        student.percentage = calculate_percentage(student.total_marks)
+    print(top_students)
+    # Pass the statistics to the template
+    context = {
+        'subject_count': subject_count,
+        'course_count': course_count,
+        'student_count': student_count,
+        'assignment_count': assignment_count,
+        'teacher_above80': teacher_above80,
+        'teacher_below30': teacher_below30,
+        'teacher_passed': teacher_passed,
+        'gender_female':gender_female,
+        'gender_male':gender_male,
+        'top_students': top_students,
+    }
+    return render(request, 'Teacher/home.html', context)
 
 def teach_ADD_STUDENT(request):
     course = Course.objects.all()

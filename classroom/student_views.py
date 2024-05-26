@@ -5,8 +5,46 @@ from django.contrib import messages
 
 @login_required(login_url='/')
 def HOME(request):
+
     user = request.session.get('user')
-    return render(request, 'Student/home.html')
+    student_id=Student.objects.get(admin=request.user.id)
+    student= Student.objects.get(admin=request.user.id)
+    subjects = Subject.objects.filter(course_id=student.course_id)
+    subject_count = subjects.count()
+
+    # Fetch the distinct teachers for these subjects
+    teacher_ids = subjects.values_list('teacher_id', flat=True).distinct()
+    teacher_count = Teacher.objects.filter(id__in=teacher_ids).count()
+    
+    assignments = Assignment.objects.filter(subject_id__in=subjects.values_list('id', flat=True))
+
+    # Get all submissions made by the student
+    submissions = Submission.objects.filter(student_id=student.admin_id, assignment_id__in=assignments.values_list('id', flat=True))
+
+    # Determine pending assignments
+    submitted_assignment_ids = submissions.values_list('assignment_id', flat=True)
+    pending_assignments_count = assignments.exclude(id__in=submitted_assignment_ids).count()
+    submitted_assignments_count = submissions.count()  # Count the submitted assignments
+
+    results = StudentResult.objects.filter(student_id=student.id)
+    # Define passing marks
+    passing_marks = 30
+
+    # Calculate passed and failed subjects
+    passed_subjects_count = results.filter(total_marks__gte=passing_marks).count()
+    failed_subjects_count = results.filter(total_marks__lt=passing_marks).count()
+
+    # Pass the statistics to the template
+    context = {
+        'subject_count': subject_count,
+        'teacher_count': teacher_count,
+        'pending_assignments_count':pending_assignments_count,
+        'submitted_assignments_count':submitted_assignments_count,
+        'passed_subjects_count': passed_subjects_count,
+        'failed_subjects_count': failed_subjects_count,
+        'results':results
+    }
+    return render(request, 'Student/home.html',context)
 
 def STUDENT_FEEDBACK(request):
 

@@ -16,51 +16,51 @@
                    <div class="col-sm-11">
                       <div class="form-group">
                          <label>Profile Pic</label>
-                         <input type="file" class="form-control" name="profile_pic" >
+                         <input type="file" class="form-control" name="profile_pic" title="Please upload a profile picture">
                          <input type="text" class="form-control" name="teacher_id" value="{% for i in teacher %}{{i.admin.id}}{% endfor %}" hidden required>
                       </div>
                    </div>
                    <div class="col-sm-11">
                       <div class="form-group">
                          <label>First Name</label>
-                         <input type="text" class="form-control" name="first_name" value="{% for i in teacher %}{{i.admin.first_name}}{% endfor %}" required>
+                         <input type="text" class="form-control" name="first_name" value="{% for i in teacher %}{{i.admin.first_name}}{% endfor %}" required pattern="[A-Za-z]+" title="First name should contain only letters.">
                       </div>
                    </div>
                    <div class="col-sm-11">
                       <div class="form-group">
                          <label>Last Name</label>
-                         <input type="text" class="form-control" name="last_name" value="{% for i in teacher %}{{i.admin.last_name}}{% endfor %}" required>
+                         <input type="text" class="form-control" name="last_name" value="{% for i in teacher %}{{i.admin.last_name}}{% endfor %}" required pattern="[A-Za-z]+" title="Last name should contain only letters.">
                       </div>
                    </div>
                  <div class="col-sm-11">
                       <div class="form-group">
                          <label>Email</label>
-                         <input type="text" class="form-control" name="email" value="{% for i in teacher %}{{i.admin.email}}{% endfor %}" readonly required>
+                         <input type="email" class="form-control" name="email" value="{% for i in teacher %}{{i.admin.email}}{% endfor %}" readonly required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address.">
                       </div>
                    </div>
                  <div class="col-sm-11">
                       <div class="form-group">
                          <label>Username</label>
-                         <input type="text" class="form-control" name="username" value="{% for i in teacher %}{{i.admin.username}}{% endfor %}" readonly required>
+                         <input type="text" class="form-control" name="username" value="{% for i in teacher %}{{i.admin.username}}{% endfor %}" readonly required pattern="^[a-zA-Z0-9]+$" title="Username should contain only letters and numbers.">
                       </div>
                    </div>
                  <div class="col-sm-11">
                       <div class="form-group">
                          <label>Password</label>
-                         <input type="password" class="form-control" name="password" placeholder="Fill only if you want to change Password."  >
+                         <input type="password" class="form-control" name="password" placeholder="Fill only if you want to change Password." pattern=".{5,}" title="Password must be at least 5 characters long.">
                       </div>
                    </div>
                  <div class="col-sm-11">
                       <div class="form-group">
                           <label>Address</label>
-                          <textarea class="form-control" name="address" required >{% for i in teacher %}{{i.address}}{% endfor %}</textarea>
+                          <textarea class="form-control" name="address" required title="Please enter your address.">{% for i in teacher %}{{i.address}}{% endfor %}</textarea>
                         </div>
                    </div>
 
                  <div class="col-sm-11">
                       <label>Gender</label>
-                         <select class="form-control" name="gender" required>
-                            <option>Select Gender</option>
+                         <select class="form-control" name="gender" required title="Please select your gender.">
+                            <option value="">Select Gender</option>
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
                             <option value="Others">Others</option>
@@ -69,7 +69,7 @@
                 
                  <br>
                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Add Teacher</button>
+                      <button type="submit" class="btn btn-primary">Update Teacher</button>
                    </div>
 
              </form>
@@ -77,4 +77,4 @@
        </div>
     </div>
  </div>
-{% endblock %}	
+{% endblock %}

@@ -1,0 +1,21 @@
+five assignment questions related to optimization techniques:
+
+Question 1: Linear Programming
+
+You are managing a production facility that manufactures two types of products, A and B. Product A requires 2 units of raw material X and 3 units of raw material Y, while product B requires 4 units of raw material X and 1 unit of raw material Y. The maximum amounts of raw materials X and Y available are 120 units and 90 units, respectively. If the profit from selling each unit of product A is $5 and each unit of product B is $8, use linear programming to determine the optimal production quantities of products A and B to maximize profit.
+
+Question 2: Gradient Descent
+
+You are training a machine learning model using gradient descent to minimize the mean squared error loss function. Explain the gradient descent algorithm and how it can be applied to update the model parameters iteratively. Provide pseudo-code for one iteration of the gradient descent algorithm.
+
+Question 3: Genetic Algorithms
+
+You are tasked with optimizing a complex engineering design problem using genetic algorithms. Describe how genetic algorithms work and how they can be applied to solve optimization problems. Discuss the key components of a genetic algorithm, including population initialization, selection, crossover, mutation, and termination criteria. Provide an example of how a genetic algorithm can be used to optimize a simple function.
+
+Question 4: Simulated Annealing
+
+You are developing a scheduling algorithm for optimizing the production schedule of a manufacturing plant. Explain how simulated annealing works and how it can be applied to solve scheduling problems. Discuss the concept of temperature in simulated annealing and its role in controlling the search process. Provide an example of how simulated annealing can be used to optimize a scheduling problem.
+
+Question 5: Particle Swarm Optimization (PSO)
+
+You are working on optimizing the placement of wireless sensor nodes in a sensor network to maximize network coverage while minimizing energy consumption. Describe how particle swarm optimization (PSO) works and how it can be applied to solve optimization problems. Discuss the key components of PSO, including particles, velocity update, position update, and termination criteria. Provide an example of how PSO can be used to optimize the placement of sensor nodes in a sensor network.

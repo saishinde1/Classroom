@@ -1,0 +1,19 @@
+Question 1: Linear Regression (ML)
+
+You are given a dataset containing information about housing prices, including features such as the number of bedrooms, square footage, and location. Implement a linear regression model in Python using libraries such as NumPy or scikit-learn to predict housing prices based on the given features. Evaluate the performance of your model using metrics such as mean squared error and R-squared.
+
+Question 2: Convolutional Neural Networks (CNNs) (DL)
+
+You are working on a computer vision project to classify images of handwritten digits (0-9) from the MNIST dataset. Implement a convolutional neural network (CNN) using a deep learning framework such as TensorFlow or PyTorch to classify the images. Train your CNN model on the MNIST dataset and evaluate its performance using metrics such as accuracy and confusion matrix.
+
+Question 3: Support Vector Machines (SVM) (ML)
+
+You are analyzing a dataset containing information about customers of a bank, including features such as age, income, and credit score. Implement a support vector machine (SVM) classifier in Python using scikit-learn to predict whether a customer will default on their loan based on the given features. Tune the hyperparameters of your SVM model using techniques such as grid search or random search.
+
+Question 4: Recurrent Neural Networks (RNNs) (DL)
+
+You are working on a natural language processing (NLP) project to generate text using a recurrent neural network (RNN). Implement a simple RNN model in Python using a deep learning framework such as TensorFlow or PyTorch to generate text character by character. Train your RNN model on a text corpus such as Shakespeare's plays and evaluate its performance by generating sample text.
+
+Question 5: Unsupervised Learning (ML)
+
+You are analyzing a dataset containing customer transaction data from an e-commerce website, including features such as purchase history and browsing behavior. Implement a clustering algorithm such as k-means clustering or hierarchical clustering in Python using scikit-learn to segment customers into distinct groups based on their behavior. Evaluate the quality of your clusters using metrics such as silhouette score or Davies–Bouldin index.

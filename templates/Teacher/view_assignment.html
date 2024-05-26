@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+</script>
+<div class="content container-fluid">
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Assignment</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"> View Assignment</a></li>
+                    <li class="breadcrumb-item active">Assignment</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    {% include 'includes/messages.html' %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-table">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table_id" class="table table-hover table-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Subject</th>
+                                    <th>Title</th>
+                                    <th>Submission Date</th>
+                                    <th>Assignment Description</th>
+                                    <th>File</th>
+                                    <th>submissions</th>
+                                    <th class="text-right">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in assignments %}
+                                <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>{{ i.subject_id }}</td>
+                                    <td>{{ i.title }}</td>
+                                    <td>{{ i.deadline }}</td>
+                                    <td>{{ i.description }}</td>
+                                    <td><a href="/media/assignments/{{ i.files.name }}">{{ i.files.name }}</a></td>
+                                    <td>
+                                        {% for subject_info in total_students_per_subject %}
+                                        {% if subject_info.subject.id == i.subject_id.id %}
+                                        {% if subject_info.total_students %}
+                                        {{ i.submissions_count }} out of {{ subject_info.total_students }}
+                                        {% else %}
+                                        N/A
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="actions">
+
+                                            <a href="{% url 'teacher_delete_assignment' i.id %}"
+                                                class="btn btn-sm bg-danger-light">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -93,16 +93,18 @@ urlpatterns = [
     path('Teacher/Save_attendace',teacher_Views.TEACHER_SAVE_ATTENDANCE,name='teacher_save_attendance'),
     path('Teacher/View_attendace',teacher_Views.TEACHER_VIEW_ATTENDANCE,name='teacher_view_attendance'),
 
-<<<<<<< HEAD
     path('Teacher/send_Assignment',teacher_Views.teacher_send_assignment,name='teacher_send_assignment'),
-=======
+    path('Teacher/View_Assignment',teacher_Views.TEACHER_VIEW_ASSIGNMENT,name='teacher_view_assignment'),
+    path('Teacher/delete_Assignment/<str:id>',teacher_Views.TEACHER_DELETE_ASSIGNMENT,name='teacher_delete_assignment'),
+    
+    path('Teacher/View_submission',teacher_Views.TEACHER_VIEW_SUBMISSION,name='teacher_view_submission'),
+
     path('Teacher/add/Result',teacher_Views.TEACHER_ADD_RESULT,name='teacher_add_result'),
     path('Teacher/save/Result',teacher_Views.TEACHER_SAVE_RESULT,name='teacher_save_result'),
-    
-    path('Teacher/send_Assignment',teacher_Views.TEACHER_SEND_ASSIGNMENT,name='teacher_send_assignment'),
->>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
-    
 
+    path('Teacher/View_notice',teacher_Views.TEACHER_VIEW_NOTICE,name='teacher_view_notice'),
+
+    
     #this is for Student
     path('Student/home',student_Views.HOME,name='student_home'),
     
@@ -114,6 +116,10 @@ urlpatterns = [
     
     path('Student/View_attendace',student_Views.STUDENT_VIEW_ATTENDANCE,name='student_view_attendance'),
     path('Student/View_Result',student_Views.STUDENT_VIEW_RESULT,name='student_view_result'),
+    path('Student/View_notice',student_Views.STUDENT_VIEW_NOTICE,name='student_view_notice'),
+    path('Student/View_Assignment',student_Views.STUDENT_VIEW_ASSIGNMENT,name='student_view_assignment'),
+    path('Student/Complete_Assignment/<str:id>',student_Views.STUDENT_COMPLETE_ASSIGNMENT,name='student_complete_assignment'),
+    path('Student/Save_Assignment',student_Views.STUDENT_SAVE_ASSIGNMENT,name='student_save_assignment'),
 
    
 

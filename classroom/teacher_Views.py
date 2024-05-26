@@ -1,18 +1,65 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
-from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Attendance,Attendance_Report,Assignment
-=======
-from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Attendance,Attendance_Report,StudentResult
->>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
+from students.models import Course,Session_Year,CustomUser,Student,Teacher,Subject,Teacher_leave,Attendance,Attendance_Report,StudentResult,Notice,Assignment,Submission
 from django.contrib import messages
+from django.db.models import Count
+from django.core.files.storage import FileSystemStorage
 
 from django.utils.dateparse import parse_datetime
+
+
+def calculate_percentage(total_marks):
+    total_marks_possible = 150
+    percentage = (total_marks / total_marks_possible) * 100
+    rounded_percentage = round(percentage, 2)  # Round to 2 decimal places
+    return rounded_percentage
 
 @login_required(login_url='/')
 def HOME(request):
     user = request.session.get('user')
-    return render(request, 'Teacher/home.html')
+    
+    teacher_id=Teacher.objects.get(admin=request.user.id)
+
+    # Compute the statistics
+    subject_count = Subject.objects.filter(teacher_id=teacher_id).count()
+    course_count = Subject.objects.filter(teacher_id=teacher_id).values('course').distinct().count()
+    courses_taught = Subject.objects.filter(teacher_id=teacher_id).values_list('course_id', flat=True).distinct()
+    student_count = Student.objects.filter(course_id__in=courses_taught).count()
+    subjects_taught = Subject.objects.filter(teacher_id=teacher_id).values_list('id', flat=True)
+    
+    # Compute the assignment count
+    assignment_count = Assignment.objects.filter(subject_id__in=subjects_taught).count()
+
+    teacher_above80 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=80).count()
+    teacher_below30 = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__lte=29).count()
+    teacher_passed = StudentResult.objects.filter(subject_id__in=subjects_taught, total_marks__gte=30).count()
+
+    gender_male = Student.objects.filter(gender='Male',course_id__in=courses_taught).count()
+    gender_female = Student.objects.filter(gender='Female',course_id__in=courses_taught).count()
+
+    courses = Course.objects.filter(subject__teacher_id=teacher_id).distinct()
+
+    # Fetch top students for each course taught by the teacher
+    top_students = StudentResult.objects.filter(subject_id__in=subjects_taught).order_by('-total_marks')[:3]
+
+# Calculate percentage for each student
+    for student in top_students:
+        student.percentage = calculate_percentage(student.total_marks)
+    print(top_students)
+    # Pass the statistics to the template
+    context = {
+        'subject_count': subject_count,
+        'course_count': course_count,
+        'student_count': student_count,
+        'assignment_count': assignment_count,
+        'teacher_above80': teacher_above80,
+        'teacher_below30': teacher_below30,
+        'teacher_passed': teacher_passed,
+        'gender_female':gender_female,
+        'gender_male':gender_male,
+        'top_students': top_students,
+    }
+    return render(request, 'Teacher/home.html', context)
 
 def teach_ADD_STUDENT(request):
     course = Course.objects.all()
@@ -251,18 +298,11 @@ def TEACHER_VIEW_ATTENDANCE(request):
 
     action=request.GET.get('action')
 
-<<<<<<< HEAD
     get_subject= None
     get_session_year= None
     attendance_date= None
     attendance_report= None
-=======
-    get_subject=None
-    get_session_year=None
-    attendance_date=None
-    attendance_report=None
-    attendance_date=None
->>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
+    
 
     if action is not None:
         if request.method == 'POST':
@@ -293,7 +333,6 @@ def TEACHER_VIEW_ATTENDANCE(request):
 
     return render(request,'Teacher/view_attendance.html',context)
 
-<<<<<<< HEAD
 @login_required(login_url='/')
 def teacher_send_assignment(request):
     teacher_id=Teacher.objects.get(admin=request.user.id)
@@ -303,32 +342,36 @@ def teacher_send_assignment(request):
         title = request.POST.get('title')
         description = request.POST.get('description')
         deadline = request.POST.get('submission_date')
-        file = request.FILES.get('upload_file')
+        upload_file = request.FILES.get('upload_file')
+        
         subject_id = request.POST.get('subject_id')
         get_subject=Subject.objects.get(id=subject_id)
          
-   
-        assignment=Assignment(
-            title=title,
-            description=description,
-            deadline=deadline,
-            subject_id=get_subject,
-            file=file
-            )
-    
-        assignment.save()
-        messages.success(request,"Successfully Created")
-        return redirect('teacher_send_assignment')
+        print("Uploaded File:", upload_file) 
 
+        if upload_file:
+            fs = FileSystemStorage(location='media/assignments/')  # Specify the destination directory
+            filename = fs.save(upload_file.name, upload_file)
+            print("Saved File Name:", filename)  # Debug: Print saved file name
+        
+            assignment = Assignment(
+                title=title,
+                description=description,
+                deadline=deadline,
+                subject_id=get_subject,
+                files=filename  # Save only the file name, not the full URL
+            )
+            assignment.save()
+            messages.success(request,"Assignment created successfully")
+            return redirect('teacher_send_assignment')
+    
     context={
         'subject':subject,
        
     }
     
     return render(request,'Teacher/send_assignment.html',context)
-=======
-def TEACHER_SEND_ASSIGNMENT(request):
-    return render(request,'Teacher/send_assignment.html')
+
 
 def TEACHER_ADD_RESULT(request):
     teacher = Teacher.objects.get(admin = request.user.id)
@@ -348,6 +391,7 @@ def TEACHER_ADD_RESULT(request):
            get_session = Session_Year.objects.get(id = session_year_id)
  
            subjects = Subject.objects.filter(id = subject_id)
+
            for i in subjects:
                student_id = i.course.id
                students = Student.objects.filter(course_id = student_id)
@@ -371,6 +415,7 @@ def TEACHER_SAVE_RESULT(request):
         student_id = request.POST.get('student_id')
         assignment_mark = request.POST.get('assignment_mark')
         Exam_mark = request.POST.get('Exam_mark')
+        total_marks= int(Exam_mark)+int(assignment_mark)
 
         get_student = Student.objects.get(admin = student_id)
         get_subject = Subject.objects.get(id=subject_id)
@@ -388,12 +433,115 @@ def TEACHER_SAVE_RESULT(request):
                 student_id=get_student, 
                 subject_id=get_subject, 
                 exam_mark=Exam_mark,
-                assignment_mark=assignment_mark
+                assignment_mark=assignment_mark,
+                total_marks=total_marks
                 )
             
             result.save()
             messages.success(request, "Successfully Added Result")
             return redirect('teacher_add_result')
         
+def TEACHER_VIEW_NOTICE(request):
+    teacher_id=Teacher.objects.get(admin=request.user.id)
+    subjects = Subject.objects.filter(teacher_id=teacher_id)
+    courses = [subject.course for subject in subjects]
+    notices = Notice.objects.filter(course__in=courses)
+    
+    context = {'notices': notices}
+    
+    return render(request,'Teacher/view_notice.html',context)
 
->>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
+
+def TEACHER_VIEW_ASSIGNMENT(request):
+    teacher = request.user.teacher
+    subjects_taught = Subject.objects.filter(teacher=teacher)
+    assignments = Assignment.objects.filter(subject_id__in=subjects_taught)
+
+    # Fetch total students for each subject taught by the teacher
+    total_students_per_subject = []
+    for subject in subjects_taught:
+        total_students = Student.objects.filter(course_id=subject.course_id).count()
+        total_students_per_subject.append({'subject': subject, 'total_students': total_students})
+
+    # Fetch total submitted assignments for each assignment
+    submitted_assignments_count = Submission.objects.filter(assignment__in=assignments).values('assignment').annotate(total_submissions=Count('assignment'))
+
+    # Combine the total submitted assignments count with assignments
+    for assignment in assignments:
+        assignment.submissions_count = next((item['total_submissions'] for item in submitted_assignments_count if item['assignment'] == assignment.id), 0)
+
+    # Calculate the submissions ratio for each assignment
+    for assignment in assignments:
+        subject_info = next((item for item in total_students_per_subject if item['subject'].id == assignment.subject_id.id), None)
+        if subject_info:
+            total_students = subject_info['total_students'] or 1  # Avoid division by zero
+            assignment.total_students = total_students
+            assignment.submissions_ratio = assignment.submissions_count / total_students
+        else:
+            assignment.total_students = 0
+            assignment.submissions_ratio = 0
+
+    context = {
+        'assignments': assignments,
+        'total_students_per_subject': total_students_per_subject
+    }
+    return render(request, 'Teacher/view_assignment.html', context)
+
+def TEACHER_DELETE_ASSIGNMENT(request,id):
+    assignment = Assignment.objects.get(id=id)
+    assignment.delete()
+    messages.success(request, "Successfully Deleted Assignment")
+    return redirect('teacher_view_assignment')
+
+
+def TEACHER_VIEW_SUBMISSION(request):
+    
+    teacher = request.user.teacher
+    subject = Subject.objects.filter(teacher=teacher)
+    course = set([subject.course for subject in subject])
+    courses_taught = set([subject.course_id for subject in subject])
+    
+    # Convert sets back to lists
+    course = list(course)
+    courses_taught = list(courses_taught)
+    
+    
+    assignment = Assignment.objects.filter(subject_id__in=subject)
+    
+    # Fetch students enrolled in the courses associated with the subjects taught by the teacher
+    students = Student.objects.filter(course_id__in=courses_taught)
+
+    action=request.GET.get('action')
+    get_course=None
+    get_subject=None
+    get_assignment=None
+    submissions=None
+
+    if action is not None:
+        if request.method == 'POST':
+            course_id=request.POST.get('course_id')
+            subject_id = request.POST.get('subject_id')
+            assignment_id = request.POST.get('assignment_id')
+            
+            get_course=Course.objects.get(id=course_id)
+            get_subject=Subject.objects.get(id=subject_id)
+            get_assignment=Assignment.objects.get(id=assignment_id)
+            
+            submissions = Submission.objects.filter(
+                subject=get_subject, course=get_course ,assignment=get_assignment)
+            
+            print(submissions)
+
+
+    context = {
+        'subject': subject,
+        'assignment':assignment,
+        'action':action,
+        'course':course,
+        'get_course':get_course,
+        'get_subject':get_subject,
+        'get_assignment':get_assignment,
+        'submissions':submissions,
+    }
+
+    return render(request, 'Teacher/view_submissions.html', context)

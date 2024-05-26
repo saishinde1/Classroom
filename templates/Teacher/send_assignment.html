@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{teacher_send_assignment}}" method="post">
+                    <form action="{{teacher_send_assignment}}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
@@ -69,7 +69,7 @@
                             </div>
                             <br>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Fetch Student</button>
+                                <button type="submit" class="btn btn-primary">Add Assignment</button>
                             </div>
                         </div>
                     </form>
@@ -79,4 +79,6 @@
         </div>
     </div>
 </div>
+
+
 {% endblock %}

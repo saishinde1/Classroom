@@ -1,0 +1,58 @@
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Gender count Form</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Gender count Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+      <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Gender count Form</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+                <div class="card-body">
+                  <div class="form-group">
+                      <asp:Label ID="sessionname" runat="server" Text="Select Session" for="selsession01"></asp:Label><span style="color:red;">*</span>
+                      <asp:DropDownList class="form-control" ID="selsession01" runat="server" Width="500">
+                          <asp:ListItem Value="-1">----Select----</asp:ListItem>
+                          <asp:ListItem Value="1">2020-2021</asp:ListItem>
+                          <asp:ListItem Value="2">2021-2022</asp:ListItem>
+                          <asp:ListItem Value="2">2022-2023</asp:ListItem>
+                      </asp:DropDownList>
+                      <asp:RequiredFieldValidator ID="classval1" runat="server" ErrorMessage="Please Select Session" Display="Dynamic" ControlToValidate="selsession01" ForeColor="Red" SetFocusOnError="true" InitialValue="-1"></asp:RequiredFieldValidator>
+                            </div>
+
+                       <!-- /.card-body -->
+                        </div>
+                <div class="card-footer"style="text-align:center">
+                  <button type="submit" class="btn btn-primary">Export To PDF</button>
+                </div>
+            </div>
+              </div></div>
+          </div>
+        </section>
+      </div>
+</asp:Content>

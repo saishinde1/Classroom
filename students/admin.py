@@ -16,9 +16,7 @@ admin.site.register(Student_Feedback)
 admin.site.register(Student_Leave)
 admin.site.register(Attendance)
 admin.site.register(Attendance_Report)
-<<<<<<< HEAD
 admin.site.register(Assignment)
 admin.site.register(Notice)
-=======
 admin.site.register(StudentResult)
->>>>>>> a63c055e995e75f19fa94ddf2d21f4e5577d0b7c
+admin.site.register(Submission)

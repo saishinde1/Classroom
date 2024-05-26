@@ -51,14 +51,7 @@
                   <li><a href="{% url 'view_session' %}">View Session</a></li>
                </ul>
             </li>
-            <li class="submenu {% active_link 'add_session' 'active' %} ">
-               <a href="#"><i class="fa fa-book-open"></i> <span> Assignment</span> <span class="menu-arrow"></span></a>
-               <ul>
-                  <li><a href="subjects.html">Assignment List</a></li>
-                  <li><a href="add-subject.html">Assignment Add</a></li>
-                  <li><a href="edit-subject.html">Assignment Edit</a></li>
-               </ul>
-            </li>
+            
             <li class=" {% active_link 'hod_upload_notice' 'active' %} ">
                <a href="{% url 'hod_upload_notice' %}"><i class="fa fa-pen"></i> <span>Notice</span></a>
             </li>
@@ -96,7 +89,7 @@
                </ul>
             </li>
             <li class="{% active_link 'teacher_take_attendance' 'active' %}">
-               <a  href="{%url 'teacher_take_attendance' %}"><i class="fas fa-calendar-alt"></i> <span>Take Attendance</span></a>
+               <a  href="{%url 'teacher_take_attendance' %}"><i class="fas fa-calendar"></i> <span>Take Attendance</span></a>
             </li>
             <li class="{% active_link 'teacher_view_attendance' 'active' %}">
                <a  href="{%url 'teacher_view_attendance' %}"><i class="fas fa-calendar-alt"></i> <span>view/update Attendance</span></a>
@@ -104,15 +97,22 @@
             <li class="{% active_link 'teacher_send_assignment' 'active' %}">
                <a  href="{%url 'teacher_send_assignment' %}"><i class="fas fa-book"></i> <span>Add Assignment</span></a>
             </li>
+            <li class="{% active_link 'teacher_view_assignment' 'active' %}">
+               <a  href="{%url 'teacher_view_assignment' %}"><i class="fas fa-book"></i> <span>View Assignment</span></a>
+            </li>
+            <li class="{% active_link 'teacher_view_submission' 'active' %}">
+               <a  href="{%url 'teacher_view_submission' %}"><i class="fa fa-check-square"></i> <span>View Submissions</span></a>
+            </li>
+            <li class="{% active_link 'teacher_view_notice' 'active' %}">
+               <a  href="{%url 'teacher_view_notice' %}"><i class="fa fa-bell"></i> <span>View Notice</span></a>
+            </li>
             <li class="{% active_link 'teacher_add_result' 'active' %}">
                <a  href="{%url 'teacher_add_result' %}"><i class="fas fa-poll-h"></i> <span>Add result</span></a>
             </li>
             <li class="{% active_link 'teacher_apply_leave' 'active' %}">
                <a  href="{%url 'teacher_apply_leave' %}"><i class="fas fa-envelope-open"></i> <span>Apply for Leave</span></a>
             </li>
-            <li class="{% active_link 'hod_home' 'active' %}">
-               <a  href="{%url 'hod_home' %}"><i class="fas fa-comment"></i> <span>send Feedback</span></a>
-            </li>
+         
             <li class="{% active_link 'logout' 'active' %}">
                <a  href="{%url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Log Out</span></a>
             </li>
@@ -132,8 +132,11 @@
                <li class="{% active_link 'student_view_result' 'active' %}">
                   <a  href="{%url 'student_view_result' %}"><i class="fas fa-poll-h"></i> <span>View Result</span></a>
                </li>
-               <li class="{% active_link 'student_home' 'active' %}">
-                  <a  href="{%url 'student_home' %}"><i class="fas fa-book-open"></i> <span>View Assignment</span></a>
+               <li class="{% active_link 'student_view_assignment' 'active' %}">
+                  <a  href="{%url 'student_view_assignment' %}"><i class="fas fa-book-open"></i> <span>View Assignment</span></a>
+               </li>
+               <li class="{% active_link 'student_view_notice' 'active' %}">
+                  <a  href="{%url 'student_view_notice' %}"><i class="fas fa-bell"></i> <span>View Notice</span></a>
                </li>
                <li class="{% active_link 'student_leave' 'active' %}">
                   <a  href="{%url 'student_leave' %}"><i class="fas fa-envelope"></i> <span>Apply for Leave</span></a>
